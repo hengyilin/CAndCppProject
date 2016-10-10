@@ -23,6 +23,12 @@ typedef struct {
     int numEdges;
 }GraphList;
 
+/**
+ * 在顶点域中查找对应的元素的下标
+ * @param g
+ * @param ch
+ * @return
+ */
 int locates(GraphList *g, char ch){
     int i;
     for (i = 0; i < MAXVEX; i++) {
@@ -69,10 +75,10 @@ void createGraph(GraphList *g){
             q = getchar();
         }
         int m = -1, n = -1;
-        m = locates(g, p);
-        n = locates(g, q);
+        m = locates(g, p); // 找到元素p在顶点域中的位置
+        n = locates(g, q); // 找到元素q在顶点域中的位置
         if (m == -1 || n == -1) {
-            printf("没有该元素\n");
+            printf("输入有误，顶点域中没有对应的元素\n");
             return;
         }
 #ifdef DEBUG
@@ -97,4 +103,29 @@ void createGraph(GraphList *g){
         f->next = g->adjList[n].firstEdge;
         g->adjList[m].firstEdge = f;
     }
+}
+
+void printGraph(GraphList *g){
+    int i = 0;
+#ifdef DEBUG
+    printf("printGraph()start");
+#endif
+    while (g->adjList[i].firstEdge != NULL && i < MAXVEX) {
+        printf("顶点是：%c\n", g->adjList[i].data);
+        EdgeNode *e = NULL;
+        e = g->adjList[i].firstEdge;
+        while (e != NULL) {
+            printf("关联的定点为：%d\n", e->adjvex);
+            e = e->next;
+        }
+        i++;
+        printf("\n");
+    }
+}
+
+int main(){
+    GraphList g;
+    createGraph(&g);
+    printGraph(&g);
+    return 0;
 }

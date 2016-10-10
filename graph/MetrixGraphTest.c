@@ -50,7 +50,9 @@ void createMetrixGraph(Graph *g){
 #endif
 
     /*初始化顶点*/
+    printf("开始初始化定点表\n");
     for (i = 0; i < g->numVertexs; i++) {
+        printf("输入节点的值（字符不能是\\n）");
         g->vexs[i] = getchar();
         while (g->vexs[i] == '\n') {
             g->vexs[i] = getchar();
@@ -65,13 +67,15 @@ void createMetrixGraph(Graph *g){
 #endif
 
     /*邻接矩阵初始化：全部设置值为无穷大 复杂度为O(n^2)*/
-    for (i = 0; i < g->numEdges; i++) {
-        for (j = 0; j < g->numEdges; j++) {
+    printf("开始初始化邻接矩阵\n");
+    for (i = 0; i < g->numVertexs; i++) {
+        for (j = 0; j < g->numVertexs; j++) {
             g->arc[i][j] = INFINITY;
         }
     }
 
     /*构造邻接矩阵*/
+    printf("开始构造邻接矩阵\n");
     for (k = 0; k < g->numEdges; k++) {
         char p,q;
         printf("输入边（vi,vj）的上标i和下标j和权值w:\n");
